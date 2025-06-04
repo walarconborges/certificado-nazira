@@ -47,7 +47,7 @@
             const dataFormatada = formatarDataParaPdf(dataSelecionada);
 
             const { jsPDF } = window.jspdf;
-            const doc = new jsPDF();
+            const doc = new jsPDF({ orientation: 'landscape' });
 
             let yPos = 20;
             const lineHeight = 8;
