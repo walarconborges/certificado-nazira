@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Gerador de Certificado - Amigo da Vila Calderita</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+       
+    </style>
+</head>
+<body>
+
+    <h1>Certificado de Amigo(a) da Vila Calderita</h1>
+
+    <label for="nome">Nome Completo:</label>
+    <input type="text" id="nome" name="nome">
+
+    <label for="data">Data da Emissão:</label>
+    <input type="date" id="data" name="data">
+
+    <button onclick="gerarCertificado()">Emitir Certificado</button>
+
+    <script>
+        function formatarDataParaPdf(dataString) {
+            const dataObj = new Date(dataString + 'T00:00:00');
+            const dia = dataObj.getDate();
+            const mesIndex = dataObj.getMonth();
+            const ano = dataObj.getFullYear();
+            const diaFormatado = String(dia).padStart(2, '0');
+            const mesesPt = [
+                "janeiro", "fevereiro", "março", "abril", "maio", "junho",
+                "julho", "agosto", "setembro", "outubro", "novembro", "dezembro"
+            ];
+            const nomeMes = mesesPt[mesIndex];
+            return `${diaFormatado} de ${nomeMes} de ${ano}`;
+        }
+
+        function gerarCertificado() {
+            const nomeCompleto = document.getElementById('nome').value;
+            const dataSelecionada = document.getElementById('data').value;
+
+            if (!nomeCompleto || !dataSelecionada) {
+                alert("Por favor, preencha o nome e a data.");
+                return;
+            }
+
+            const dataFormatada = formatarDataParaPdf(dataSelecionada);
+
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+
+            let yPos = 20;
+            const lineHeight = 8;
+            const paragraphSpacing = 4;
+
+            doc.setFontSize(12);
+
+            doc.text("A comunidade da", 20, yPos);
+            yPos += lineHeight;
+            doc.text("Vila da Calderita", 20, yPos);
+            yPos += lineHeight + paragraphSpacing;
+
+            doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA),", 20, yPos);
+            yPos += lineHeight;
+            doc.text("confere o título de:", 20, yPos);
+            yPos += lineHeight + paragraphSpacing;
+
+            doc.setFontSize(14);
+            doc.text("Amigo(a) da Calderita", 20, yPos);
+            yPos += lineHeight;
+            doc.setFontSize(12);
+            doc.text("a(o) Senhor(a) " + nomeCompleto, 20, yPos);
+            yPos += lineHeight + paragraphSpacing;
+
+            doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade", 20, yPos);
+            yPos += lineHeight;
+            doc.text("em seus serviços voluntários relevantes.", 20, yPos);
+            yPos += lineHeight + paragraphSpacing * 2;
+
+            doc.text("Porto Velho, " + dataFormatada + ".", 20, yPos);
+            yPos += lineHeight * 3.5;
+
+            const signatureLine = "_________________________________________";
+            doc.text(signatureLine, 20, yPos);
+            yPos += lineHeight;
+            doc.text("Maria Nazira Freitas de Sá (Presidente)", 20, yPos);
+            yPos += lineHeight * 2;
+
+            doc.text(signatureLine, 20, yPos);
+            yPos += lineHeight;
+            doc.text("Anselmo Duarte (Vice-Presidente)", 20, yPos);
+
+            doc.save("Certificado_VilaCalderita_" + nomeCompleto.replace(/ /g,"_") + ".pdf");
+        }
+    </script>
+
+</body>
+</html>
