@@ -44,87 +44,118 @@
                 return;
             }
 
-            const imagemPlanoDeFundo = new Image();
-            imagemPlanoDeFundo.src = "certificado.png"; // Certifique-se que está na mesma pasta
+            // DIAGNÓSTICO: Verificando se estamos tentando carregar a imagem
+            console.log("Tentando carregar a imagem de fundo: certificado.png");
 
-            // Evento disparado QUANDO A IMAGEM É COMPLETAMENTE CARREGADA
+            const imagemPlanoDeFundo = new Image();
+            imagemPlanoDeFundo.crossOrigin = "anonymous"; // Permite carregar imagens de outros domínios, se necessário
+            
+            // IMPORTANTE: Defina os manipuladores de evento ANTES de definir o .src
             imagemPlanoDeFundo.onload = function() {
-                // ---- INÍCIO DA MODIFICAÇÃO PARA CONVERTER IMAGEM PARA DATA URL ----
+                // DIAGNÓSTICO: Imagem carregada com sucesso!
+                console.log("imagemPlanoDeFundo.onload FOI ACIONADO!");
+                console.log("Dimensões naturais da imagem: ", this.naturalWidth, "x", this.naturalHeight);
+
+                if (this.naturalWidth === 0 || this.naturalHeight === 0) {
+                    console.error("ERRO: A imagem foi carregada, mas as dimensões são zero. O arquivo de imagem pode estar corrompido ou vazio.");
+                    alert("A imagem de fundo parece estar vazia ou corrompida, apesar de ter sido carregada.");
+                    return; // Não continuar se a imagem não tiver dimensões
+                }
+
                 const canvas = document.createElement('canvas');
-                canvas.width = this.naturalWidth; // Usa a largura natural da imagem carregada
-                canvas.height = this.naturalHeight; // Usa a altura natural da imagem carregada
+                canvas.width = this.naturalWidth;
+                canvas.height = this.naturalHeight;
 
                 const ctx = canvas.getContext('2d');
-                ctx.drawImage(this, 0, 0); // 'this' aqui é a imagemPlanoDeFundo
+                ctx.drawImage(this, 0, 0);
 
-                // Converte o conteúdo do canvas para uma Data URL (string base64)
-                const imageDataUrl = canvas.toDataURL('image/png');
-                // ---- FIM DA MODIFICAÇÃO PARA CONVERTER IMAGEM PARA DATA URL ----
+                let imageDataUrl;
+                try {
+                    imageDataUrl = canvas.toDataURL('image/png');
+                    // DIAGNÓSTICO: Data URL gerada. Verifique se parece válida.
+                    console.log("imageDataUrl gerada (início): ", imageDataUrl.substring(0, 100) + "..."); // Mostra só o começo
+                    if (imageDataUrl.length < 100) { // Um DataURL válido de uma imagem PNG será bem maior
+                        console.error("ERRO: imageDataUrl parece muito curta para ser válida!");
+                        alert("Houve um problema ao converter a imagem de fundo.");
+                        return;
+                    }
+                } catch (e) {
+                    console.error("Erro ao gerar DataURL: ", e);
+                    alert("Erro ao processar a imagem de fundo: " + e.message);
+                    return;
+                }
 
-                // Agora, o resto da geração do PDF continua, mas usando imageDataUrl
-
-                const dataFormatada = formatarDataParaPdf(dataSelecionada); // Sua função de formatar data
+                const dataFormatada = formatarDataParaPdf(dataSelecionada);
                 const { jsPDF } = window.jspdf;
                 const doc = new jsPDF({ orientation: 'landscape' });
 
                 const larguraPagina = doc.internal.pageSize.getWidth();
                 const alturaPagina = doc.internal.pageSize.getHeight();
 
-                // ADICIONAR A IMAGEM DE PLANO DE FUNDO USANDO A DATA URL
-                doc.addImage(imageDataUrl, 'PNG', 0, 0, larguraPagina, alturaPagina);
+                // DIAGNÓSTICO: Antes de adicionar a imagem ao PDF
+                console.log("Adicionando imagem ao PDF. Largura da página:", larguraPagina, "Altura:", alturaPagina);
+
+                try {
+                    doc.addImage(imageDataUrl, 'PNG', 0, 0, larguraPagina, alturaPagina);
+                    // DIAGNÓSTICO: Depois de adicionar a imagem ao PDF
+                    console.log("Imagem teoricamente adicionada ao PDF.");
+                } catch (e) {
+                    console.error("ERRO ao executar doc.addImage:", e);
+                    alert("Erro da biblioteca jsPDF ao tentar adicionar a imagem: " + e.message);
+                    return;
+                }
+
 
                 // ADICIONAR TODO O TEXTO DO CERTIFICADO SOBRE A IMAGEM
-                // Lembre-se que estas posições (yPos, xPos) provavelmente precisarão de ajuste
                 let yPos = 20;
                 const xPos = 20;
                 const lineHeight = 8;
                 const paragraphSpacing = 4;
-
                 doc.setFontSize(12);
-
                 doc.text("A comunidade da", xPos, yPos);
                 yPos += lineHeight;
                 doc.text("Vila da Calderita", xPos, yPos);
                 yPos += lineHeight + paragraphSpacing;
-
                 doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA),", xPos, yPos);
                 yPos += lineHeight;
                 doc.text("confere o título de:", xPos, yPos);
                 yPos += lineHeight + paragraphSpacing;
-
                 doc.setFontSize(14);
                 doc.text("Amigo(a) da Calderita", xPos, yPos);
                 yPos += lineHeight;
                 doc.setFontSize(12);
                 doc.text("a(o) Senhor(a) " + nomeCompleto, xPos, yPos);
                 yPos += lineHeight + paragraphSpacing;
-
                 doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade", xPos, yPos);
                 yPos += lineHeight;
                 doc.text("em seus serviços voluntários relevantes.", xPos, yPos);
                 yPos += lineHeight + paragraphSpacing * 2;
-
                 doc.text("Porto Velho, " + dataFormatada + ".", xPos, yPos);
                 yPos += lineHeight * 3.5;
-
                 const signatureLine = "_________________________________________";
                 doc.text(signatureLine, xPos, yPos);
                 yPos += lineHeight;
                 doc.text("Maria Nazira Freitas de Sá (Presidente)", xPos, yPos);
                 yPos += lineHeight * 2;
-
                 doc.text(signatureLine, xPos, yPos);
                 yPos += lineHeight;
                 doc.text("Anselmo Duarte (Vice-Presidente)", xPos, yPos);
 
                 doc.save("Certificado_VilaCalderita_" + nomeCompleto.replace(/ /g, "_") + ".pdf");
+                // DIAGNÓSTICO: PDF salvo.
+                console.log("Função gerarCertificado concluída, PDF salvo.");
 
             }; // Fim do imagemPlanoDeFundo.onload
 
             imagemPlanoDeFundo.onerror = function() {
-                alert("Erro ao carregar a imagem de fundo 'certificado.png'. Verifique o console para mais detalhes e se o arquivo está na mesma pasta que o index.html.");
-                console.error("Erro ao carregar a imagem: ", imagemPlanoDeFundo.src);
+                // DIAGNÓSTICO: Erro ao carregar a imagem!
+                console.error("imagemPlanoDeFundo.onerror FOI ACIONADO!");
+                alert("ERRO CRÍTICO: Não foi possível carregar a imagem de fundo 'certificado.png'. Verifique se o nome do arquivo está correto, se ele está na MESMA PASTA que o arquivo index.html e se não está corrompido.");
             };
+
+            // IMPORTANTE: .src deve ser definido DEPOIS dos manipuladores .onload e .onerror
+            imagemPlanoDeFundo.src = "certificado.png";
+
         }
     </script>
 
