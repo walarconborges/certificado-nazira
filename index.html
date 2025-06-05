@@ -108,38 +108,37 @@
 
                 // ADICIONAR TODO O TEXTO DO CERTIFICADO SOBRE A IMAGEM
                 let yPos = 20;
-                const xPos = 20;
                 const lineHeight = 8;
                 const paragraphSpacing = 4;
                 doc.setFontSize(12);
-                doc.text("A comunidade da", xPos, yPos);
+                doc.text("A comunidade da", larguraPagina / 2, yPos, {align:'center'});
                 yPos += lineHeight;
-                doc.text("Vila da Calderita", xPos, yPos);
+                doc.text("Vila da Calderita", larguraPagina / 2, yPos, {align:'center'});
                 yPos += lineHeight + paragraphSpacing;
-                doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA),", xPos, yPos);
+                doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA),", larguraPagina / 2, yPos, {align:'center'});
                 yPos += lineHeight;
-                doc.text("confere o título de:", xPos, yPos);
+                doc.text("confere o título de:", larguraPagina / 2, yPos, {align:'center'}); );
                 yPos += lineHeight + paragraphSpacing;
                 doc.setFontSize(14);
-                doc.text("Amigo(a) da Calderita", xPos, yPos);
+                doc.text("Amigo(a) da Calderita", larguraPagina / 2, yPos, {align:'center'}););
                 yPos += lineHeight;
                 doc.setFontSize(12);
-                doc.text("a(o) Senhor(a) " + nomeCompleto, xPos, yPos);
+                doc.text("a(o) Senhor(a) " + nomeCompleto, larguraPagina / 2, yPos, {align:'center'}));
                 yPos += lineHeight + paragraphSpacing;
-                doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade", xPos, yPos);
+                doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade", larguraPagina / 2, yPos, {align:'center'}););
                 yPos += lineHeight;
-                doc.text("em seus serviços voluntários relevantes.", xPos, yPos);
+                doc.text("em seus serviços voluntários relevantes.", larguraPagina / 2, yPos, {align:'center'}); );
                 yPos += lineHeight + paragraphSpacing * 2;
-                doc.text("Porto Velho, " + dataFormatada + ".", xPos, yPos);
+                doc.text("Porto Velho, " + dataFormatada + ".", larguraPagina / 2, yPos, {align:'center'});
                 yPos += lineHeight * 3.5;
                 const signatureLine = "_________________________________________";
-                doc.text(signatureLine, xPos, yPos);
+                doc.text(signatureLine, larguraPagina / 2, yPos, {align:'center'}
                 yPos += lineHeight;
-                doc.text("Maria Nazira Freitas de Sá (Presidente)", xPos, yPos);
+                doc.text("Maria Nazira Freitas de Sá (Presidente)", larguraPagina / 2, yPos, {align:'center'});
                 yPos += lineHeight * 2;
-                doc.text(signatureLine, xPos, yPos);
+                doc.text(signatureLine, larguraPagina / 2, yPos, {align:'center'}
                 yPos += lineHeight;
-                doc.text("Anselmo Duarte (Vice-Presidente)", xPos, yPos);
+                doc.text("Anselmo Duarte (Vice-Presidente)", larguraPagina / 2, yPos, {align:'center'}); );
 
                 doc.save("Certificado_VilaCalderita_" + nomeCompleto.replace(/ /g, "_") + ".pdf");
                 // DIAGNÓSTICO: PDF salvo.
