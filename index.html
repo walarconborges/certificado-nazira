@@ -103,15 +103,6 @@
                     return;
                 }
 
-                // 2. AGORA ADICIONE O TEXTO DE TESTE
-                console.log("Adicionando TEXTO DE TESTE CENTRALIZADO sobre o fundo.");
-                doc.setFontSize(20); // Um tamanho de fonte razoável para o teste
-                doc.text("TEXTO DE TESTE CENTRALIZADO", larguraPagina / 2, 50, { align: 'center' }); // Y=50 para ficar perto do topo
-                console.log("TEXTO DE TESTE CENTRALIZADO teoricamente adicionado.");
-
-
-                // 3. COMENTE TEMPORARIAMENTE TODO O TEXTO ORIGINAL DO CERTIFICADO PARA ESTE TESTE
-                /*
                 const dataFormatada = formatarDataParaPdf(dataSelecionada); // Precisa estar aqui se o texto abaixo não for comentado
                 let yPos = 20;
                 const lineHeight = 8;
@@ -145,7 +136,6 @@
                 doc.text(signatureLine, larguraPagina / 2, yPos, {align:'center'});
                 yPos += lineHeight;
                 doc.text("Anselmo Duarte (Vice-Presidente)", larguraPagina / 2, yPos, {align:'center'});
-                */
 
                 // A linha abaixo que pega o nomeCompleto ainda é necessária para o nome do arquivo
                 // const nomeCompleto = document.getElementById('nome').value; // Já está no início da função gerarCertificado
