@@ -127,15 +127,27 @@
                 doc.text("em seus serviços voluntários relevantes.", larguraPagina / 2, yPos, {align:'center'});
                 yPos += lineHeight + paragraphSpacing * 2;
                 doc.text("Porto Velho, " + dataFormatada + ".", larguraPagina -15, yPos, {align:'right'});
+                //espaço vertical antes das assinaturas
                 yPos += lineHeight * 3.5;
-                const signatureLine = "_________________________________________";
-                doc.text(signatureLine, larguraPagina / 2, yPos, {align:'center'});
-                yPos += lineHeight;
-                doc.text("Maria Nazira Freitas de Sá (Presidente)", larguraPagina / 2, yPos, {align:'center'});
-                yPos += lineHeight * 2;
-                doc.text(signatureLine, larguraPagina / 2, yPos, {align:'center'});
-                yPos += lineHeight;
-                doc.text("Anselmo Duarte (Vice-Presidente)", larguraPagina / 2, yPos, {align:'center'});
+
+                //linha de assinatura
+                const signatureLineText = "_________________________________________";
+                let yPosAssinaturas = yPos //guarda a altura onde as assinaturas vão começar
+
+		//assinatura Nazira (metade esquerda)
+                doc.text(signatureLineText, larguraPagina / 4, yPosAssinaturas, {align:'center'});
+                yPosAssinaturas += lineHeight; // desce uma linha
+                doc.text("Maria Nazira Freitas de Sá", larguraPagina / 4, yPosAssinaturas, {align:'center'});
+		yPosAssinaturas += lineHeight; // desce uma linha
+                doc.text("Presidente", larguraPagina / 4, yPosAssinaturas, {align:'center'});
+
+		//assinatura anselmo
+                yPosAssinaturas += yPos; //volta para a altura inicial para alinhar horizontalmente
+                doc.text(signatureLine, (3 * larguraPagina) / 4, yPosAssinaturas, {align:'center'});
+                yPosAssinaturas += lineHeight; //desce uma linha
+                doc.text("Anselmo Duarte", (3* larguraPagina) / 4, yPosAssinaturas, {align:'center'});
+                yPosAssinaturas += lineHeight; //desce uma linha
+                doc.text("Vice-Presidente", (3* larguraPagina) / 4, yPosAssinaturas, {align:'center'});
 
                 // A linha abaixo que pega o nomeCompleto ainda é necessária para o nome do arquivo
                 // const nomeCompleto = document.getElementById('nome').value; // Já está no início da função gerarCertificado
