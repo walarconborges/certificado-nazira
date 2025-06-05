@@ -90,6 +90,8 @@
                 const doc = new jsPDF({ orientation: 'landscape' });
 
                 const larguraPagina = doc.internal.pageSize.getWidth();
+                doc.setFontSize(20); // Um tamanho de fonte razoável para o teste
+                doc.text("TEXTO DE TESTE CENTRALIZADO", larguraPagina / 2, 50, { align: 'center' }); // Y=50 para ficar perto do topo
                 const alturaPagina = doc.internal.pageSize.getHeight();
 
                 // DIAGNÓSTICO: Antes de adicionar a imagem ao PDF
