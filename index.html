@@ -44,53 +44,87 @@
                 return;
             }
 
-            const dataFormatada = formatarDataParaPdf(dataSelecionada);
+            const imagemPlanoDeFundo = new Image();
+            imagemPlanoDeFundo.src = "certificado.png"; // Certifique-se que está na mesma pasta
 
-            const { jsPDF } = window.jspdf;
-            const doc = new jsPDF({ orientation: 'landscape' });
+            // Evento disparado QUANDO A IMAGEM É COMPLETAMENTE CARREGADA
+            imagemPlanoDeFundo.onload = function() {
+                // ---- INÍCIO DA MODIFICAÇÃO PARA CONVERTER IMAGEM PARA DATA URL ----
+                const canvas = document.createElement('canvas');
+                canvas.width = this.naturalWidth; // Usa a largura natural da imagem carregada
+                canvas.height = this.naturalHeight; // Usa a altura natural da imagem carregada
 
-            let yPos = 20;
-            const lineHeight = 8;
-            const paragraphSpacing = 4;
+                const ctx = canvas.getContext('2d');
+                ctx.drawImage(this, 0, 0); // 'this' aqui é a imagemPlanoDeFundo
 
-            doc.setFontSize(12);
+                // Converte o conteúdo do canvas para uma Data URL (string base64)
+                const imageDataUrl = canvas.toDataURL('image/png');
+                // ---- FIM DA MODIFICAÇÃO PARA CONVERTER IMAGEM PARA DATA URL ----
 
-            doc.text("A comunidade da", 20, yPos);
-            yPos += lineHeight;
-            doc.text("Vila da Calderita", 20, yPos);
-            yPos += lineHeight + paragraphSpacing;
+                // Agora, o resto da geração do PDF continua, mas usando imageDataUrl
 
-            doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA),", 20, yPos);
-            yPos += lineHeight;
-            doc.text("confere o título de:", 20, yPos);
-            yPos += lineHeight + paragraphSpacing;
+                const dataFormatada = formatarDataParaPdf(dataSelecionada); // Sua função de formatar data
+                const { jsPDF } = window.jspdf;
+                const doc = new jsPDF({ orientation: 'landscape' });
 
-            doc.setFontSize(14);
-            doc.text("Amigo(a) da Calderita", 20, yPos);
-            yPos += lineHeight;
-            doc.setFontSize(12);
-            doc.text("a(o) Senhor(a) " + nomeCompleto, 20, yPos);
-            yPos += lineHeight + paragraphSpacing;
+                const larguraPagina = doc.internal.pageSize.getWidth();
+                const alturaPagina = doc.internal.pageSize.getHeight();
 
-            doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade", 20, yPos);
-            yPos += lineHeight;
-            doc.text("em seus serviços voluntários relevantes.", 20, yPos);
-            yPos += lineHeight + paragraphSpacing * 2;
+                // ADICIONAR A IMAGEM DE PLANO DE FUNDO USANDO A DATA URL
+                doc.addImage(imageDataUrl, 'PNG', 0, 0, larguraPagina, alturaPagina);
 
-            doc.text("Porto Velho, " + dataFormatada + ".", 20, yPos);
-            yPos += lineHeight * 3.5;
+                // ADICIONAR TODO O TEXTO DO CERTIFICADO SOBRE A IMAGEM
+                // Lembre-se que estas posições (yPos, xPos) provavelmente precisarão de ajuste
+                let yPos = 20;
+                const xPos = 20;
+                const lineHeight = 8;
+                const paragraphSpacing = 4;
 
-            const signatureLine = "_________________________________________";
-            doc.text(signatureLine, 20, yPos);
-            yPos += lineHeight;
-            doc.text("Maria Nazira Freitas de Sá (Presidente)", 20, yPos);
-            yPos += lineHeight * 2;
+                doc.setFontSize(12);
 
-            doc.text(signatureLine, 20, yPos);
-            yPos += lineHeight;
-            doc.text("Anselmo Duarte (Vice-Presidente)", 20, yPos);
+                doc.text("A comunidade da", xPos, yPos);
+                yPos += lineHeight;
+                doc.text("Vila da Calderita", xPos, yPos);
+                yPos += lineHeight + paragraphSpacing;
 
-            doc.save("Certificado_VilaCalderita_" + nomeCompleto.replace(/ /g,"_") + ".pdf");
+                doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA),", xPos, yPos);
+                yPos += lineHeight;
+                doc.text("confere o título de:", xPos, yPos);
+                yPos += lineHeight + paragraphSpacing;
+
+                doc.setFontSize(14);
+                doc.text("Amigo(a) da Calderita", xPos, yPos);
+                yPos += lineHeight;
+                doc.setFontSize(12);
+                doc.text("a(o) Senhor(a) " + nomeCompleto, xPos, yPos);
+                yPos += lineHeight + paragraphSpacing;
+
+                doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade", xPos, yPos);
+                yPos += lineHeight;
+                doc.text("em seus serviços voluntários relevantes.", xPos, yPos);
+                yPos += lineHeight + paragraphSpacing * 2;
+
+                doc.text("Porto Velho, " + dataFormatada + ".", xPos, yPos);
+                yPos += lineHeight * 3.5;
+
+                const signatureLine = "_________________________________________";
+                doc.text(signatureLine, xPos, yPos);
+                yPos += lineHeight;
+                doc.text("Maria Nazira Freitas de Sá (Presidente)", xPos, yPos);
+                yPos += lineHeight * 2;
+
+                doc.text(signatureLine, xPos, yPos);
+                yPos += lineHeight;
+                doc.text("Anselmo Duarte (Vice-Presidente)", xPos, yPos);
+
+                doc.save("Certificado_VilaCalderita_" + nomeCompleto.replace(/ /g, "_") + ".pdf");
+
+            }; // Fim do imagemPlanoDeFundo.onload
+
+            imagemPlanoDeFundo.onerror = function() {
+                alert("Erro ao carregar a imagem de fundo 'certificado.png'. Verifique o console para mais detalhes e se o arquivo está na mesma pasta que o index.html.");
+                console.error("Erro ao carregar a imagem: ", imagemPlanoDeFundo.src);
+            };
         }
     </script>
 
