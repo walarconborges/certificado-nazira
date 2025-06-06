@@ -129,15 +129,18 @@
                 doc.text("Porto Velho, " + dataFormatada + ".", larguraPagina -15, yPos, {align:'right'});
                 
 		//espaço vertical antes das assinaturas
-		const yPosAssinaturas = alturaPagina -30;
+		const yPosAssinaturas = alturaPagina -25;
 
                 //linha de assinatura
                 const signatureLineText = "_________________________________________";
+
+		// fonte 10 para as assinaturas
+		doc.setFontSize(10); 
                
 		//assinatura Nazira (metade esquerda)
                 let yNazira = yPosAssinaturas;
 		doc.text(signatureLineText, larguraPagina / 4, yNazira, {align:'center'});
-                yNazira += lineHeight; // desce uma linha
+                yNazira += 5; // desce uma linha
                 doc.text("Maria Nazira Freitas de Sá", larguraPagina / 4, yNazira, {align:'center'});
 		yNazira += lineHeight; // desce uma linha
                 doc.text("Presidente", larguraPagina / 4, yNazira,{align:'center'});
@@ -145,7 +148,7 @@
 		//assinatura anselmo (metade direita)
                 let yAnselmo = yPosAssinaturas; //volta para a altura inicial para alinhar horizontalmente
                 doc.text(signatureLineText, (3 * larguraPagina) / 4, yAnselmo, {align:'center'});
-                yAnselmo += lineHeight; //desce uma linha
+                yAnselmo += 5; //desce uma linha
                 doc.text("Anselmo Duarte", (3* larguraPagina) / 4, yAnselmo, {align:'center'});
                 yAnselmo += lineHeight; //desce uma linha
                 doc.text("Vice-Presidente", (3* larguraPagina) / 4, yAnselmo, {align:'center'});
