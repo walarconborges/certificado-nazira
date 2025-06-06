@@ -129,7 +129,7 @@
                 doc.text("Porto Velho, " + dataFormatada + ".", larguraPagina -15, yPos, {align:'right'});
                 
 		//espaço vertical antes das assinaturas
-		const yPosAssinaturas = alturaPagina -25;
+		const yPosAssinaturas = alturaPagina -20;
 
                 //linha de assinatura
                 const signatureLineText = "_________________________________________";
@@ -140,17 +140,17 @@
 		//assinatura Nazira (metade esquerda)
                 let yNazira = yPosAssinaturas;
 		doc.text(signatureLineText, larguraPagina / 4, yNazira, {align:'center'});
-                yNazira += 5; // desce uma linha
+                yNazira += 3; // desce uma linha
                 doc.text("Maria Nazira Freitas de Sá", larguraPagina / 4, yNazira, {align:'center'});
-		yNazira += lineHeight; // desce uma linha
+		yNazira += 3; // desce uma linha
                 doc.text("Presidente", larguraPagina / 4, yNazira,{align:'center'});
 
 		//assinatura anselmo (metade direita)
                 let yAnselmo = yPosAssinaturas; //volta para a altura inicial para alinhar horizontalmente
                 doc.text(signatureLineText, (3 * larguraPagina) / 4, yAnselmo, {align:'center'});
-                yAnselmo += 5; //desce uma linha
+                yAnselmo += 3; //desce uma linha
                 doc.text("Anselmo Duarte", (3* larguraPagina) / 4, yAnselmo, {align:'center'});
-                yAnselmo += lineHeight; //desce uma linha
+                yAnselmo += 3; //desce uma linha
                 doc.text("Vice-Presidente", (3* larguraPagina) / 4, yAnselmo, {align:'center'});
 
                 // A linha abaixo que pega o nomeCompleto ainda é necessária para o nome do arquivo
