@@ -134,6 +134,8 @@
 				doc.text("Vila da Calderita", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight + paragraphSpacing;
 
+				doc.setFontSize(24); //Tamanho padrão
+				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA),", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
 				doc.text("confere o título de:", larguraPagina / 2, yPos, {align:'center'});
@@ -144,6 +146,8 @@
 				doc.text("Amigo(a) da Calderita", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
 				
+				doc.setFontSize(24); //Tamanho padrão
+				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				const margemEsquerda = 50;
 				const texto1 = "a(o) Senhor(a) ";
 				doc.text(texto1, margemEsquerda, yPos);
@@ -153,12 +157,18 @@
 				doc.text(texto2, margemEsquerda + larguraTexto1, yPos);
 				yPos += lineHeight + paragraphSpacing;
 			
+				doc.setFontSize(24); //Tamanho padrão
+				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
 				
+				doc.setFontSize(24); //Tamanho padrão
+				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("em seus serviços voluntários relevantes.", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight + paragraphSpacing * 2;
 				
+				doc.setFontSize(24); //Tamanho padrão
+				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("Porto Velho, " + dataFormatada + ".", larguraPagina -15, yPos, {align:'right'});
 				
 				//espaço vertical antes das assinaturas
@@ -168,7 +178,8 @@
 				const signatureLineText = "_________________________________________";
 				
 				// fonte 10 para as assinaturas
-				doc.setFontSize(10); 
+				doc.setFontSize(10); //Tamanho padrão
+				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				
 				//assinatura Nazira (metade esquerda)
 				let yNazira = yPosAssinaturas;
