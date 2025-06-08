@@ -187,8 +187,8 @@
 				// A linha abaixo que pega o nomeCompleto ainda é necessária para o nome do arquivo
 				// const nomeCompleto = document.getElementById('nome').value; // Já está no início da função gerarCertificado
 				doc.save("Certificado_VilaCalderita_" + nomeCompleto.replace(/ /g, "_") + ".pdf");
-				console.log("Função gerarCertificado concluída, PDF salvo (com teste de centralização).")
-				}
+				console.log("Função gerarCertificado concluída, PDF salvo (com teste de centralização).");
+				})
 			.catch(error => {
 				//Se qualquer uma das tarefas falhar (imagem ou fonte), mostrará este erro.
 				console.error("Erro ao carregar recursos:", error);
