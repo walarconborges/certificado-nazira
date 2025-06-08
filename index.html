@@ -94,7 +94,7 @@
 				canvas.height = imagemCarregada.naturalHeight;
 				const ctx = canvas.getContext('2d');
 				ctx.drawImage(imagemCarregada, 0, 0);
-				const imageDataUrl = canvas.toDataURL('image/png'); //a variável é criada aqui
+				const imageDataURL = canvas.toDataURL('image/png'); //a variável é criada aqui
 
 				//passo 3: criar documento pdf
 				const { jsPDF } = window.jspdf;
@@ -115,8 +115,6 @@
 					doc.addFont(nomeDoArquivo, nomeNoCodigo, 'normal');
 					console.log(`Fonte '${nomeNoCodigo}' registrada na jsPDF.`)
 				});
-
-
 
 				const dataFormatada = formatarDataParaPDF(dataSelecionada);
 
