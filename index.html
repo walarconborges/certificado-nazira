@@ -20,7 +20,7 @@
 	<button onclick="gerarCertificado()">Emitir Certificado</button>
 	
 <script>
-	function formatarDataParaPdf(dataString) {
+	function formatarDataParaPDF(dataString) {
 		const dataObj = new Date(dataString + 'T00:00:00');
 		const dia = dataObj.getDate();
 		const mesIndex = dataObj.getMonth();
