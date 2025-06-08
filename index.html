@@ -129,7 +129,7 @@
 				doc.text("A comunidade da", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
 
-				doc.setFont('LoversQuarrel', 'bold'); // Alterar fonte
+				doc.setFont('LoversQuarrel', 'normal'); // Alterar fonte
 				doc.setFontSize(50); // Ajustar tamanho da fonte
 				doc.text("Vila da Calderita", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight + paragraphSpacing;
@@ -139,16 +139,17 @@
 				doc.text("confere o título de:", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight + paragraphSpacing;
 				
-				doc.setFont('MissFajardose', 'bold'); // Alterar fonte
+				doc.setFont('MissFajardose', 'normal'); // Alterar fonte
 				doc.setFontSize(70); // Ajustar tamanho da fonte
 				doc.text("Amigo(a) da Calderita", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
 				
+				const margemEsquerda = 50;
 				const texto1 = "a(o) Senhor(a) ";
 				doc.text(texto1, margemEsquerda, yPos);
 				const larguraTexto1 = doc.getTextWidth(texto1);
 				const texto2 = nomeCompleto;
-				doc.setFont('disney'); 
+				doc.setFont('disney-4'); 
 				doc.text(texto2, margemEsquerda + larguraTexto1, yPos);
 				yPos += lineHeight + paragraphSpacing;
 			
