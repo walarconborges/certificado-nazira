@@ -82,20 +82,28 @@
 		Promise.all([promessaDaImagem, promessaFonte1, promessaFonte2, promessaFonte3, promessaFonte4])
 			.then(resultados => {
 				//'resultados' é uma lista com tudo o que foi carregado
-				const imagemCarregada = resultados[0]; //o primeiro item é a imagem
-				const fontesCarregadas = resultados.slice(1); //o resto são os pacotes das fontes
-		
-				//SUCESSO! Ambos os arquivos foram carregados. Agora geramos o PDF.
 				console.log("Imagem e fonte carregadas! Gerando o PDF...");
 				
+				//passo 1: separar os resultados que chegaram
+				const imagemCarregada = resultados[0]; //o primeiro item é a imagem
+				const fontesCarregadas = resultados.slice(1); //o resto são os pacotes das fontes
+				
+				//passo 2: preparar a imagem de fundo (criar o imageDataURL)
 				const canvas = document.createElement('canvas');
 				canvas.width = imagemCarregada.naturalWidth;
 				canvas.height = imagemCarregada.naturalHeight;
 				const ctx = canvas.getContext('2d');
 				ctx.drawImage(imagemCarregada, 0, 0);
-				const imageDataUrl = canvas.toDataURL('image/png');
+				const imageDataUrl = canvas.toDataURL('image/png'); //a variável é criada aqui
+
+				//passo 3: criar documento pdf
 				const { jsPDF } = window.jspdf;
 				const doc = new jsPDF({ orientation: 'landscape' });
+
+				//passo 4: capturar dimensões da página e adicionar a imagem de fundo ao pdf
+				const larguraPagina = doc.internal.pageSize.getWidth();
+				const alturaPagina = doc.internal.pageSize.getHeight();
+				doc.addImage(imageDataURL, 'PNG', 0, 0, larguraPagina, alturaPagina);
 				
 				//Registrando fontes na jsPDF
 				console.log("Registrando todas as fontes carregadas...");
@@ -108,12 +116,7 @@
 					console.log(`Fonte '${nomeNoCodigo}' registrada na jsPDF.`)
 				});
 
-				//captura dimensões da página
-				const larguraPagina = doc.internal.pageSize.getWidth();
-				const alturaPagina = doc.internal.pageSize.getHeight();
 
-				//pega imagem e coloca no fundo
-				doc.addImage(imageDataURL, 'PNG', 0, 0, larguraPagina, alturaPagina);
 
 				const dataFormatada = formatarDataParaPDF(dataSelecionada);
 
