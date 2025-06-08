@@ -2,6 +2,7 @@
 <html lang="pt-BR">
 <head>
 	<meta charset="UTF-8">
+	<link rel="icon" href="https://raw.githubusercontent.com/walarconborges/certificado-nazira/refs/heads/main/amavica-logo.jpeg"> 
 	<title>Gerador de Certificado - Amigo da Vila Calderita</title>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 	<style>
@@ -187,7 +188,7 @@
 				// const nomeCompleto = document.getElementById('nome').value; // Já está no início da função gerarCertificado
 				doc.save("Certificado_VilaCalderita_" + nomeCompleto.replace(/ /g, "_") + ".pdf");
 				console.log("Função gerarCertificado concluída, PDF salvo (com teste de centralização).");
-			}
+				}
 			.catch(error => {
 				//Se qualquer uma das tarefas falhar (imagem ou fonte), mostrará este erro.
 				console.error("Erro ao carregar recursos:", error);
