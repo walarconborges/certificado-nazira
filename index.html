@@ -56,25 +56,34 @@
 			imagem.src = "certificado.png";
 		});
 
-		//Tarefa 2: Carregar o arquivo da fonte
-		const promessaDaFonte = new Promise((resolve,reject) => {
-			console.log("Iniciando carregamento da fonte...");
-			//fetch busca o arquivo da fonte no seu repositório
-
-			fetch('Fontes/NOMEDAFONTE.ttf')
-				.then(responde => response.arrayBuffer()) // Pega os dados brutos da fonte
-				.then(data => {
-					console.log("Fonte carregada.");
-					//converte os dados para um formato que a jsPDF entende (base64)
-					const base64 = btoa (String.fromCharCode.apply(null,new Uint8Array(data)));
-					resolve(base64);
-				})
-				.catch(error => reject (new Error("Não foi possível carregar a fonte 'NOMEDAFONTE.ttf'")));
-		});
-					
+		//Tarefa 2: Fábrica de fontes
+		const carregarFonte = (caminhoDaFonte) => {
+			return new Promise((resolve, reject) => {
+				console.log(`Iniciando carregamento da fonte: ${caminhoDaFonte}...`)
+				fetch(caminhoDaFonte)
+					.then(response => response.arrayBuffer())
+					.then(data => {
+						console.log(`Fonte ${caminhoDaFonte} carregada.`);
+						const base64 = btoa(String.fromCharCode.apply(null, new Uint8Array(data)));
+						//devolve um objeto com o nome do arquivo e os dados
+						const nomeDoArquivo = caminhoDaFonte.split('/').pop(); //pega só o nome do arquivo do caminho
+						resolve({ nome: nomeDoArquivo, dados: base64 });
+					})
+					.catch(error => reject(new Error(`Não foi possível carregar a fonte: ${caminhoDaFonte}`)));
+			});
+		};
+		const promessaFonte1 = carregarFonte('fontes/CroissantOne-Regular.ttf');
+		const promessaFonte2 = carregarFonte('fontes/LovesQuarrel-Regular.ttf');
+		const promessaFonte3 = carregarFonte('fontes/MissFajardose-Regular.ttf');
+		const promessaFonte4 = carregarFonte('fontes/disney-4.ttf');
+							
 		//Promise.all vai esperar as duas tarefas (imagem e fonte) terminarem
-		Promise.all([promessaDaImagem, promessaDaFonte])
-			.then(([imagemCarregada, fonteCarregadaEmBase64]) => {
+		Promise.all([promessaDaImagem, promessaFonte1, promessaFonte2, promessaFonte3, promessaFonte4])
+			.then(resultados => {
+				//'resultados' é uma lista com tudo o que foi carregado
+				const imagemCarregada = resultados[0]; //o primeiro item é a imagem
+				const fontesCarregadas = resultados.slice(1); //o resto são os pacotes das fontes
+		
 				//SUCESSO! Ambos os arquivos foram carregados. Agora geramos o PDF.
 				console.log("Imagem e fonte carregadas! Gerando o PDF...");
 				
@@ -87,24 +96,29 @@
 				const { jsPDF } = window.jspdf;
 				const doc = new jsPDF({ orientation: 'landscape' });
 				
-				//Registrando a nova fonte na jsPDF
-				const nomeDoArquivoDaFonte = 'NOMEDAFONTE.ttf';
-				const nomeDaFonteNoCodigo = 'NOMEDAFONTE'; //nome que usaremos para chamar a fonte
-				doc.addFileToVFS(nomeDoArquivoDaFonte, fonteCarregadaEmBase64);
-				doc.addFont(nomeDoArquivoDaFonte, nomeDaFonteNoCodigo, 'normal');
-				console.log("Fonte 'NOMEDAFONTE' registrada na jsPDF.")
+				//Registrando fontes na jsPDF
+				console.log("Registrando todas as fontes carregadas...");
+				fontesCarregadas.forEach(fonte => {
+					const nomeDoArquivo = fonte.nome;
+					//cria um apelido para a fonte, tirando o .ttf e o -regular.
+					const nomeNoCodigo = nomeDoArquivo.replace('.ttf','').replace('-Regular','');
+					doc.addFileToVFS(nomeDoArquivo, fonte.dados);
+					doc.addFont(nomeDoArquivo, nomeNoCodigo, 'normal');
+					console.log(`Fonte '${nomeNoCodigo}' registrada na jsPDF.`)
+				});
 
+				//captura dimensões da página
 				const larguraPagina = doc.internal.pageSize.getWidth();
 				const alturaPagina = doc.internal.pageSize.getHeight();
 
+				//pega imagem e coloca no fundo
 				doc.addImage(imageDataURL, 'PNG', 0, 0, larguraPagina, alturaPagina);
 
 				const dataFormatada = formatarDataParaPDF(dataSelecionada);
 
-				//Agora você pode usar doc.setFont ('NOMEDAFONTE') para trocar a fonte
-
-				doc.setFontSize(14); //Tamanho padrão
-				doc.setFont('NOMEDAFONTE', 'normal'); //Fonte padrão para o início
+				//Agora você pode usar doc.setFont para trocar a fonte
+				doc.setFontSize(24); //Tamanho padrão
+				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				
 				let yPos = 20; //ajuste do Y inicial
 				const lineHeight = 8;
@@ -112,25 +126,36 @@
 				
 				doc.text("A comunidade da", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
+
+				doc.setFont('LovesQuarrel', 'bold'); // Alterar fonte
+				doc.setFontSize(50); // Ajustar tamanho da fonte
 				doc.text("Vila da Calderita", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight + paragraphSpacing;
 
-				doc.setFont('NOMEDAFONTE'); // Alterar fonte
-				doc.setFontSize(32); // Ajustar tamanho da fonte
 				doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA),", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
 				doc.text("confere o título de:", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight + paragraphSpacing;
-				doc.setFontSize(14);
+				
+				doc.setFont('MissFajardose', 'bold'); // Alterar fonte
+				doc.setFontSize(70); // Ajustar tamanho da fonte
 				doc.text("Amigo(a) da Calderita", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
-				doc.setFontSize(12);
-				doc.text("a(o) Senhor(a) " + nomeCompleto, larguraPagina / 2, yPos, {align:'center'});
+				
+				const texto1 = "a(o) Senhor(a) ";
+				doc.text(texto1, margemEsquerda, yPos);
+				const larguraTexto1 = doc.getTextWidth(texto1);
+				const texto2 = nomeCompleto;
+				doc.setFont('disney'); 
+				doc.text(texto2, margemEsquerda + larguraTexto1, yPos);
 				yPos += lineHeight + paragraphSpacing;
+			
 				doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
+				
 				doc.text("em seus serviços voluntários relevantes.", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight + paragraphSpacing * 2;
+				
 				doc.text("Porto Velho, " + dataFormatada + ".", larguraPagina -15, yPos, {align:'right'});
 				
 				//espaço vertical antes das assinaturas
