@@ -119,7 +119,7 @@
 				const dataFormatada = formatarDataParaPDF(dataSelecionada);
 
 				//Agora você pode usar doc.setFont para trocar a fonte
-				doc.setFontSize(24); //Tamanho padrão
+				doc.setFontSize(20); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				
 				let yPos = 20; //ajuste do Y inicial
@@ -127,26 +127,26 @@
 				const paragraphSpacing = 4;
 				
 				doc.text("A comunidade da", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight;
+				yPos += lineHeight + paragraphSpacing + 5;
 
 				doc.setFont('LoversQuarrel', 'normal'); // Alterar fonte
 				doc.setFontSize(50); // Ajustar tamanho da fonte
 				doc.text("Vila da Calderita", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing;
+				yPos += lineHeight + paragraphSpacing + 5;
 
-				doc.setFontSize(24); //Tamanho padrão
+				doc.setFontSize(20); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA),", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight;
 				doc.text("confere o título de:", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing;
+				yPos += lineHeight + paragraphSpacing + 5;
 				
 				doc.setFont('MissFajardose', 'normal'); // Alterar fonte
 				doc.setFontSize(70); // Ajustar tamanho da fonte
 				doc.text("Amigo(a) da Calderita", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight;
+				yPos += lineHeight + paragraphSpacing + 5;
 				
-				doc.setFontSize(24); //Tamanho padrão
+				doc.setFontSize(20); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				const margemEsquerda = 50;
 				const texto1 = "a(o) Senhor(a) ";
@@ -155,21 +155,22 @@
 				const texto2 = nomeCompleto;
 				doc.setFont('disney-4'); 
 				doc.text(texto2, margemEsquerda + larguraTexto1, yPos);
-				yPos += lineHeight + paragraphSpacing;
+				yPos += lineHeight + paragraphSpacing + 5;
 			
-				doc.setFontSize(24); //Tamanho padrão
+				doc.setFontSize(20); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight;
+				yPos += lineHeight + paragraphSpacing + 5;
 				
-				doc.setFontSize(24); //Tamanho padrão
+				doc.setFontSize(20); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("em seus serviços voluntários relevantes.", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 2;
+				yPos += lineHeight + paragraphSpacing + 5;
 				
-				doc.setFontSize(24); //Tamanho padrão
+				doc.setFontSize(20); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("Porto Velho, " + dataFormatada + ".", larguraPagina -15, yPos, {align:'right'});
+				yPos += lineHeight + paragraphSpacing + 5;
 				
 				//espaço vertical antes das assinaturas
 				const yPosAssinaturas = alturaPagina -25;
