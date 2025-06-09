@@ -78,10 +78,9 @@
 		const promessaFonte3 = carregarFonte('fontes/MissFajardose-Regular.ttf');
 		const promessaFonte4 = carregarFonte('fontes/disney-4.ttf');
 		const promessaFonte5 = carregarFonte('fontes/BLKCHCRY.TTF');
-		const promessaFonte6 = carregarFonte('fontes/ARIAL.TTF');
 							
 		//Promise.all vai esperar as duas tarefas (imagem e fonte) terminarem
-		Promise.all([promessaDaImagem, promessaFonte1, promessaFonte2, promessaFonte3, promessaFonte4, promessaFonte5, promessaFonte6])
+		Promise.all([promessaDaImagem, promessaFonte1, promessaFonte2, promessaFonte3, promessaFonte4, promessaFonte5])
 			.then(resultados => {
 				//'resultados' é uma lista com tudo o que foi carregado
 				console.log("Imagem e fonte carregadas! Gerando o PDF...");
