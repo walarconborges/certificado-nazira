@@ -111,7 +111,7 @@
 				fontesCarregadas.forEach(fonte => {
 					const nomeDoArquivo = fonte.nome;
 					//cria um apelido para a fonte, tirando o .ttf e o -regular.
-					const nomeNoCodigo = nomeDoArquivo.replace(/\.ttf$/i,'').replace('/-Regular/i','');
+					const nomeNoCodigo = nomeDoArquivo.replace(/\.ttf$/i,'').replace(/-Regular/i,'');
 					doc.addFileToVFS(nomeDoArquivo, fonte.dados);
 					doc.addFont(nomeDoArquivo, nomeNoCodigo, 'normal');
 					console.log(`Fonte '${nomeNoCodigo}' registrada na jsPDF.`)
