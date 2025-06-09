@@ -136,7 +136,7 @@
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA), \n confere o título de:", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 3;
+				yPos += lineHeight + paragraphSpacing * 5;
 				
 				doc.setFont('MissFajardose', 'normal'); // Alterar fonte
 				doc.setFontSize(80); // Ajustar tamanho da fonte
@@ -150,7 +150,7 @@
 				doc.text(texto1, margemEsquerda, yPos);
 				const larguraTexto1 = doc.getTextWidth(texto1);
 				const texto2 = nomeCompleto;
-				doc.setFontSize(25)
+				doc.setFontSize(30)
 				doc.setFont('disney-4'); 
 				doc.text(texto2, margemEsquerda + larguraTexto1, yPos);
 				yPos += lineHeight + paragraphSpacing *2;
@@ -169,7 +169,7 @@
 				const yPosAssinaturas = alturaPagina -25;
 								
 				doc.setFontSize(10); //Tamanho padrão
-				doc.setFont('helvetica', 'normal'); //Fonte padrão para o início
+				doc.setFont('Courier', 'normal'); //Fonte padrão para o início
 				//linha de assinatura
 				const signatureLineText = "_________________________________________";
 				
