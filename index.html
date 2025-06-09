@@ -123,7 +123,7 @@
 				const lineHeight = 8;
 				const paragraphSpacing = 4;
 				
-				doc.setFontSize(20); //Tamanho padrão
+				doc.setFontSize(25); //Tamanho padrão
 				doc.setFont('BLKCHCRY'); //Fonte padrão para o início
 				doc.text("A comunidade da", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight + paragraphSpacing * 3;
@@ -131,12 +131,12 @@
 				doc.setFont('LoversQuarrel', 'normal'); // Alterar fonte
 				doc.setFontSize(70); // Ajustar tamanho da fonte
 				doc.text("Vila da Calderita", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 2;
+				yPos += lineHeight + paragraphSpacing * 1;
 
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA), \n confere o título de:", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 9;
+				yPos += lineHeight + paragraphSpacing * 8;
 				
 				doc.setFont('MissFajardose', 'normal'); // Alterar fonte
 				doc.setFontSize(90); // Ajustar tamanho da fonte
@@ -153,12 +153,12 @@
 				doc.setFontSize(35)
 				doc.setFont('disney-4'); 
 				doc.text(texto2, margemEsquerda + larguraTexto1, yPos);
-				yPos += lineHeight + paragraphSpacing *4;
+				yPos += lineHeight + paragraphSpacing *2;
 			
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade \n em seus serviços voluntários relevantes.", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 6;
+				yPos += lineHeight + paragraphSpacing * 4;
 				
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
@@ -168,27 +168,31 @@
 				//espaço vertical antes das assinaturas
 				const yPosAssinaturas = alturaPagina -25;
 								
-				doc.setFontSize(10); //Tamanho padrão
-				doc.setFont('ARIAL', 'normal'); //Fonte padrão para o início
 				//linha de assinatura
 				const signatureLineText = "_________________________________________";
 				
-				// fonte 10 para as assinaturas
-				doc.setFontSize(10); //Tamanho padrão
-				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
-				
 				//assinatura Nazira (metade esquerda)
 				let yNazira = yPosAssinaturas;
+				doc.setFontSize(10); //Tamanho padrão
+				doc.setFont('ARIAL', 'normal'); //Fonte padrão para o início
 				doc.text(signatureLineText, larguraPagina / 4, yNazira, {align:'center'});
 				yNazira += 4; // desce uma linha
+				
+				doc.setFontSize(10); //Tamanho padrão
+				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("Maria Nazira Freitas de Sá", larguraPagina / 4, yNazira, {align:'center'});
 				yNazira += 4; // desce uma linha
 				doc.text("Presidente", larguraPagina / 4, yNazira,{align:'center'});
 				
 				//assinatura anselmo (metade direita)
 				let yAnselmo = yPosAssinaturas; //volta para a altura inicial para alinhar horizontalmente
+				doc.setFontSize(10); //Tamanho padrão
+				doc.setFont('ARIAL', 'normal'); //Fonte padrão para o início
 				doc.text(signatureLineText, (3 * larguraPagina) / 4, yAnselmo, {align:'center'});
 				yAnselmo += 4; //desce uma linha
+				
+				doc.setFontSize(10); //Tamanho padrão
+				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("Anselmo Duarte", (3* larguraPagina) / 4, yAnselmo, {align:'center'});
 				yAnselmo += 4; //desce uma linha
 				doc.text("Vice-Presidente", (3* larguraPagina) / 4, yAnselmo, {align:'center'});
