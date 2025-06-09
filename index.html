@@ -208,6 +208,15 @@
 				alert("Houve um erro ao carregar imagem de fundo ou a fonte. Verifique o console (f12) para detalhes.");
 			});
 		}
+	window.onload = function() { //roda assim que a página carregar
+		const campoData = document.getElementById('data'); // Pega o campo de data pelo ID dele
+		const hoje = new Date(); // Cria um objeto com a data e hora de hoje
+		const ano = hoje.getFullYear(); // Pega o ano, mês e dia. (Somamos 1 ao mês, pois ele começa em 0 para janeiro)
+		const mes = String(hoje.getMonth() + 1).padStart(2, '0'); // Formata para ter 2 dígitos (ex: 06)
+		const dia = String(hoje.getDate()).padStart(2, '0'); // Formata para ter 2 dígitos (ex: 09)
+		const dataDeHojeFormatada = `${ano}-${mes}-${dia}`; // Monta a string no formato AAAA-MM-DD
+		campoData.value = dataDeHojeFormatada; // Define o valor do campo de data para a data de hoje
+	};
 </script>
 	
 </body>
