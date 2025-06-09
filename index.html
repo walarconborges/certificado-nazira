@@ -77,7 +77,7 @@
 		const promessaFonte2 = carregarFonte('fontes/LoversQuarrel-Regular.ttf');
 		const promessaFonte3 = carregarFonte('fontes/MissFajardose-Regular.ttf');
 		const promessaFonte4 = carregarFonte('fontes/disney-4.ttf');
-		const promessaFonte5 = carregarFonte('fontes/BLKCHCRY.ttf');
+		const promessaFonte5 = carregarFonte('fontes/BLKCHCRY.TTF');
 							
 		//Promise.all vai esperar as duas tarefas (imagem e fonte) terminarem
 		Promise.all([promessaDaImagem, promessaFonte1, promessaFonte2, promessaFonte3, promessaFonte4, promessaFonte5])
@@ -126,22 +126,22 @@
 				doc.setFontSize(20); //Tamanho padrão
 				doc.setFont('BLKCHCRY', 'normal'); //Fonte padrão para o início
 				doc.text("A comunidade da", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing + 5;
+				yPos += lineHeight + paragraphSpacing * 2;
 
 				doc.setFont('LoversQuarrel', 'normal'); // Alterar fonte
 				doc.setFontSize(50); // Ajustar tamanho da fonte
 				doc.text("Vila da Calderita", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 3;
+				yPos += lineHeight + paragraphSpacing * 2;
 
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA), \n confere o título de:", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 4;
+				yPos += lineHeight + paragraphSpacing * 2;
 				
 				doc.setFont('MissFajardose', 'normal'); // Alterar fonte
 				doc.setFontSize(70); // Ajustar tamanho da fonte
 				doc.text("Amigo(a) da Calderita", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing + 5;
+				yPos += lineHeight + paragraphSpacing * 2;
 				
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
@@ -153,7 +153,7 @@
 				doc.setFontSize(20)
 				doc.setFont('disney-4'); 
 				doc.text(texto2, margemEsquerda + larguraTexto1, yPos);
-				yPos += lineHeight + paragraphSpacing + 5;
+				yPos += lineHeight + paragraphSpacing *2;
 			
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
@@ -163,7 +163,7 @@
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("Porto Velho, " + dataFormatada + ".", larguraPagina -15, yPos, {align:'right'});
-				yPos += lineHeight + paragraphSpacing + 5;
+				yPos += lineHeight + paragraphSpacing * 2;
 				
 				//espaço vertical antes das assinaturas
 				const yPosAssinaturas = alturaPagina -25;
