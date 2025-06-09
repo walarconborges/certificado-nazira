@@ -81,7 +81,7 @@
 		const promessaFonte6 = carregarFonte('fontes/ARIAL.TTF');
 							
 		//Promise.all vai esperar as duas tarefas (imagem e fonte) terminarem
-		Promise.all([promessaDaImagem, promessaFonte1, promessaFonte2, promessaFonte3, promessaFonte4, promessaFonte5])
+		Promise.all([promessaDaImagem, promessaFonte1, promessaFonte2, promessaFonte3, promessaFonte4, promessaFonte5, promessaFonte6])
 			.then(resultados => {
 				//'resultados' é uma lista com tudo o que foi carregado
 				console.log("Imagem e fonte carregadas! Gerando o PDF...");
@@ -127,22 +127,22 @@
 				doc.setFontSize(20); //Tamanho padrão
 				doc.setFont('BLKCHCRY'); //Fonte padrão para o início
 				doc.text("A comunidade da", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 2;
+				yPos += lineHeight + paragraphSpacing * 3;
 
 				doc.setFont('LoversQuarrel', 'normal'); // Alterar fonte
-				doc.setFontSize(60); // Ajustar tamanho da fonte
+				doc.setFontSize(70); // Ajustar tamanho da fonte
 				doc.text("Vila da Calderita", larguraPagina / 2, yPos, {align:'center'});
 				yPos += lineHeight + paragraphSpacing * 2;
 
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("representada por sua Associação dos Moradores e Amigos da Vila Calderita (AMAVICA), \n confere o título de:", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 7;
+				yPos += lineHeight + paragraphSpacing * 9;
 				
 				doc.setFont('MissFajardose', 'normal'); // Alterar fonte
 				doc.setFontSize(90); // Ajustar tamanho da fonte
 				doc.text("Amigo(a) da Calderita", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 4;
+				yPos += lineHeight + paragraphSpacing * 5;
 				
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
@@ -151,15 +151,15 @@
 				doc.text(texto1, margemEsquerda, yPos);
 				const larguraTexto1 = doc.getTextWidth(texto1);
 				const texto2 = nomeCompleto;
-				doc.setFontSize(30)
+				doc.setFontSize(35)
 				doc.setFont('disney-4'); 
 				doc.text(texto2, margemEsquerda + larguraTexto1, yPos);
-				yPos += lineHeight + paragraphSpacing *2;
+				yPos += lineHeight + paragraphSpacing *4;
 			
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
 				doc.text("por seu reconhecido mérito em sua atuação participativa na Comunidade \n em seus serviços voluntários relevantes.", larguraPagina / 2, yPos, {align:'center'});
-				yPos += lineHeight + paragraphSpacing * 4;
+				yPos += lineHeight + paragraphSpacing * 6;
 				
 				doc.setFontSize(15); //Tamanho padrão
 				doc.setFont('CroissantOne', 'normal'); //Fonte padrão para o início
